@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>detailds</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/details.css">
+</head>
+
+<body>
+    <div class="detailsContainer">
+        <header class="d-flex align-items-center">
+            <img width="140" src="./images/home/logo.jpg" alt="logo">
+            <p id="home">Home</p>
+            <p id="back">Back</p>
+        </header>
+
+        <section>
+            <iframe style="width: 100%;height: 87vh;" id="iframe"  frameborder="0"></iframe>
+        </section>
+    </div>
+
+    <script src="./js/jquery-3.6.1.min.js"></script>
+    <script>
+        let baseUrl = 'http://127.0.0.1:3100/';
+        let  = '';
+        url = location.search.split("?")[1].split('&');
+        let lat = url[0].split('=')[1];
+        let lng = url[1].split('=')[1];
+        $.ajax({
+            url: `${baseUrl}query/?lat=${lat}&lng=${lng}` ,
+            type: "get",
+            dataType: "json",
+            success: function ({url}) {
+                console.log(url);
+                let iframe =document.querySelector('#iframe');
+                iframe.src = url;
+            }
+        });
+
+    </script>
+
+    <script>
+
+
+
+
+
+        $('#home').click(() => {
+            window.open('./index.html', "_self");
+        });
+        $('#back').click(() => {
+            window.open('./map.html', "_self");
+        });
+    </script>
+</body>
+
+</html>

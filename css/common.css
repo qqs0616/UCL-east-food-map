@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: "SZX";
+    src: url('../font/Bold.woff2');
+}
+
+
+.d-flex{
+    display: flex;
+}
+
+.just-content-center{
+    justify-content: center;
+}
+
+.flex-direction-column{
+    flex-direction: column;
+}
+
+.align-items-center{
+    align-items: center;
+}
+
+
+
+.button{
+    font-family: "SZX";
+    border: none;
+}

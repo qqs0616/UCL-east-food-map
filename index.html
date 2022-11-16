@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <title>index</title>
+</head>
+
+<body>
+    <div class="container">
+        <img src="./images/home/logo.jpg" alt="logo">
+        <div class="centerContainer d-flex just-content-center flex-direction-column align-items-center">
+            <h1>Story</h1>
+            <p>
+                As a new student in a large metropolis, it can be overwhelming to find a place to eat awesomely tasty
+                food while studying so hard. Healthy nutrition doesn’t mean eating pasta each evening while saving each
+                penny. London is bursting with many great affordable places to eat and we want you to find them easier.
+                UCL East is a new campus. The students have not been here before and are not familiar with the
+                environment. Therefore, our website aims to show, compare and find cafes and restaurants within a
+                3-miles radius of the new UCL campus.
+            </p>
+        </div>
+        <div class="d-flex just-content-center footer">
+            <button id="linkbutton" class="button tolink">Let's start!</button>
+        </div>
+    </div>
+
+    <script src="./js/jquery-3.6.1.min.js"></script>
+    <script>
+        ~function(){
+            let linkButton = $('#linkbutton');
+            linkButton.click(function () {
+                window.open('./map.html','_self');
+            })
+        }()
+    </script>
+</body>
+
+</html>

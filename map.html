@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/map.css">
+    <title>map</title>
+
+</head>
+
+<body>
+    <div class="mapContainer">
+        <section id="map">
+        </section>
+        <div class="left">
+            <img src="./images/home/logo.jpg" style="width: 200px;" alt="logo">
+            <div class="bottom d-flex just-content-center flex-direction-column align-items-center">
+                <dir class="footer_item">
+                    <h3>Price Ranges:</h3>
+                    <select name="price" id="price">
+                        <option value="0~1">￡</option>
+                        <option value="1~2">￡￡</option>
+                        <!-- <option value="2~3">2~3</option> -->
+                    </select>
+                </dir>
+                <dir class="footer_item">
+                    <h3>Category:</h3>
+                    <select name="category" id="category">
+                        <option value="Restaurants">Restaurants</option>
+                        <option value="Burgers">Burgers</option>
+                        <option value="Japanese">Japanese</option>
+                        <option value="Chinese">Chinese</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Thai">Thai</option>
+                    </select>
+                </dir>
+                <dir class="footer_item">
+                    <h3>Distance:</h3>
+                    <select name="Distance" id="Distance">
+                        <option value="inner">Within a mile</option>
+                        <option value="outside">One to three miles</option>
+                    </select>
+                </dir>
+
+                <button class="button searchButton" id="serch">Search</button>
+            </div>
+        </div>
+    </div>
+    <script src="./js/jquery-3.6.1.min.js"></script>
+    <script>
+
+        // console.log($);
+        let category = $("#category");
+        let price = $("#price");
+        let Distance = $("#Distance");
+        let serch = $("#serch");
+
+
+
+        let categoryVal = "Restaurants";
+        let priceVal = "0~1";
+        let DistanceVal = "inner";
+
+
+
+
+        category.change((e) => {
+            categoryVal = e.target.value;
+        })
+        price.change((e) => {
+            priceVal = e.target.value;
+        })
+        Distance.change((e) => {
+            DistanceVal = e.target.value;
+        })
+
+
+        serch.click(() => {
+            initMap();
+        });
+
+        let map;
+        let service;
+        let infowindow;
+
+
+        
+
+
+        function initMap() {
+            const sydney = new google.maps.LatLng(51.53941912975072, -0.008935872569856644);
+
+            infowindow = new google.maps.InfoWindow();
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: sydney,
+                zoom: 15,
+            });
+
+            let minmaxPrice = priceVal.split("~");
+            console.log(minmaxPrice);
+            const request = {
+                location: {
+                    lat: 51.53941912975072,
+                    lng: -0.008935872569856644,
+                },
+                minPriceLevel: +minmaxPrice[0],
+                maxPriceLevel: +minmaxPrice[1],
+                keyword: categoryVal,
+                // keyword:categoryVal,
+                radius:DistanceVal=='inner'?1000:3000
+                // query: categoryVal,
+                // fields: ["name", "geometry"],
+            };
+            console.log(request);
+            service = new google.maps.places.PlacesService(map);
+            service.nearbySearch(request, (results, status) => {
+                if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+                    console.log(results);
+                    for (let i = 0; i < results.length; i++) {
+                        createMarker(results[i]);
+                    }
+
+                    map.setCenter(results[0].geometry.location);
+                }
+            });
+        }
+
+        function createMarker(place) {
+            if (!place.geometry || !place.geometry.location) return;
+            const marker = new google.maps.Marker({
+                map,
+                position: place.geometry.location,
+            });
+
+            google.maps.event.addListener(marker, "click", (e) => {
+                window.open(`./details.html?lat=${place.geometry.location.lat()}&lng=${place.geometry.location.lng()}`, '_self');
+            });
+        }
+
+        window.initMap = initMap;
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDG1s50mpMr2RrMrdZfHUcXHfCf3A0seU4&callback=initMap&libraries=places&v=weekly"></script>
+  
+
+
+</body>
+
+</html>

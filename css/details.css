@@ -1,0 +1,20 @@
+.detailsContainer{
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    border-bottom: 10px solid #be3528;
+    border-top: 10px solid #be3528;
+    position: relative;
+}
+
+.detailsContainer header{
+    width: 400px;
+    background-color: rgb(246, 198, 103);
+}
+
+.detailsContainer header p{
+    color: rgb(189, 49, 36);
+    cursor: pointer;
+    font-size: 24px;
+    padding: 26px;
+}
